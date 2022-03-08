@@ -1,0 +1,188 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+
+\usetheme{ugoe}
+\input{beamerstyleugoe.tex}
+
+\AtEndPreamble{\hypersetup{
+pdftitle={},
+pdfsubject={},
+pdfauthor={},
+pdfkeywords={}
+}}
+
+\title{\Large\color{ugoelogodark} BSc Intro 2022 ROOT Intro}
+\shorttitle{ROOT Intro}
+\author[]{Wael Alkakhi, Ishan Pokharel, Chris Scheulen, Sreelakshmi Sindhi}
+\institute[Univ. of G\"ottingen]{II.~Physikalisches Institut, Georg-August-Universit\"at G\"ottingen}
+\date{2022-03-09}
+
+\def\insertlogos{
+%   \centering
+%   \includegraphics[height=1.1cm]{logos/BMBF-Gef-Logo-gefoerdert.jpg}%
+%   \hspace{0.5cm}%
+%   \includegraphics[height=1.1cm]{logos/FSP_ATLAS.png}%
+%   \end{minipage}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Today's Agenda}
+
+  \begin{itemize}
+    \item
+      \emph{9:00 -- 10:30:} \textbf{Intro}
+    \begin{itemize}
+      \item[--] Setting up
+      \item[--] Interactive ROOT sessions
+      \item[--] ROOT via Terminal
+    \end{itemize}
+    \item
+      \emph{10:30 -- 12:30:} \textbf{Tutorial}
+    \begin{itemize}
+      \item[--] Opening TFiles
+      \item[--] Creating TChains
+      \item[--] Accessing Variables from TBranches
+    \end{itemize}
+    \item
+      \emph{12:30 -- 13:30:} \textbf{Lunch}
+    \item
+      \emph{13:30 -- 16:30:} \textbf{Tutorial cont'd}
+    \begin{itemize}
+      \item[--] Setting up Event Loops
+      \item[--] Filling Histograms (TH1/TH2)
+      \item[--] Writing Histograms to TFile
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{First Things First: Setting Up}
+  \footnotesize\textbf{(NOTE: This should largely be a repeat of Monday)}
+  \normalsize
+  \begin{enumerate}
+    \item
+      SSH into lxplus: \\ \textbf{\texttt{\$ ssh -XY <MY\_USERNAME>@lxplus.cern.ch}}
+    \begin{itemize}
+      \item[--] Flags for allowing graphical stuff (X11-Forwarding)
+      \item[--] Hope you didn't forget your password here\ldots
+    \end{itemize}
+    \item
+      setup ATLAS environment: \textbf{\texttt{setupATLAS}}
+    \item
+      Load up ROOT: \\ \textbf{\texttt{\$ lsetup "root <version>"}}
+    \begin{itemize}
+      \item[--] For looking up available versions: Use \textbf{\texttt{\$ showVersions root}}
+      \item[--] Here: We will use version \textbf{6.20.06-x86\_64-centos7-gcc8-opt}
+      \item[--] Later: Ask your \sout{doctor} supervisor, which version is right for you
+    \end{itemize}
+  \end{enumerate}
+  \large Congrats! Now you are ready to ROOT!
+\end{frame}
+
+\begin{frame}{Interactive Mode}
+  \begin{itemize}
+    \item
+      Simplest way to run ROOT: Interactive mode
+    \begin{itemize}
+      \item[--] Similar to python console
+    \end{itemize}
+    \item[$\rightarrow$]
+      Just type \textbf{\texttt{root}} for this
+    \begin{itemize}
+      \item[--] Not ideal for running a full analysis (You'd have to remember every command in the right order\ldots)
+      \item[--] Great for learning/debugging though
+      \item[--] If you want to save many histograms: Batch-mode is your friend (Flag \textbf{\texttt{-b}} for this)
+      \item[--] Annoyed by all the info? Flag \textbf{\texttt{-l}} to start quietly.
+    \end{itemize}
+    \item
+      Now you can try out ROOT (and C++) commands
+    \item
+      Stuck in interactive mode with no way out?! \textbf{\texttt{.q}} to quit or \textbf{\texttt{.help}} to get help!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Stuff to Try Out}
+  \begin{itemize}
+    \item
+      Define variables and use them (in C++ syntax)
+    \begin{itemize}
+      \item[--] \textbf{\texttt{double pi = 3.14}}
+      \item[--] \textbf{\texttt{int r = 10}}
+      \item[--] \textbf{\texttt{std::string "Welcome to ROOT!"}} ($\leftarrow$ Note how some C++ stuff works as well!)
+      \item[--] \textbf{\texttt{2 * pi * r}}
+    \end{itemize}
+    \item
+      Write a function (Multi-line expressions in brackets work!)
+    \begin{itemize}
+      \item[--] \textbf{\texttt{std::cout << "Hello, World!" << std::endl}}
+      \item[--] \textbf{\texttt{[0] int doubling(int a) \{}} \\
+                \textbf{\texttt{[1] return 2 * a;}} \\
+                \textbf{\texttt{[2] \}}}
+      \item[--] You need to include semicolons in multi-line functions (like in normal C++)!
+    \end{itemize}
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{TBrowser}
+  \begin{columns}
+    \begin{column}{0.49\textwidth}
+  \begin{itemize}
+    \item
+      Nice way of browsing through ROOT files
+    \item
+      Can show histograms, TTrees, etc.
+    \item
+      Also possible to modify attributes (e.g.~Histogram display options)
+    \item
+      A note on TTrees, TBranches and TLeaves:
+    \begin{itemize}
+      \item[--]
+        Event data organized in TTrees
+      \item[--]
+        TTrees hold TBranches
+      \item[--]
+        Branches have TLeaves with the event variables (one variable per leaf, one or more leaves per branch)
+    \end{itemize}
+  \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.49\textwidth}
+      \includegraphics[width=\textwidth]{tbrow_example.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Looking at TFiles without TBrowser}
+  \begin{itemize}
+    \item
+      You can load TFiles when starting ROOT: \\ \textbf{\texttt{\$ root <filepath>}}
+    \begin{itemize}
+      \item[$\rightarrow$] TFile gets handle (normally: \textbf{\texttt{\_file0}})
+      \item[--] Alternative while in ROOT (used later today): \\ \textbf{\texttt{[0] TFile* file = new TFile("<filepath>", "READ")}} \\ \textbf{\texttt{[1] TTree* tree = (TTree*)file->Get("<treename>")}}
+      
+    \end{itemize}
+    \item
+      Now you can look at the tree contents:
+    \begin{itemize}
+      \item[--] \textbf{\texttt{[0] nominal->Print()}} prints tree contents of nominal
+      \item[--] \textbf{\texttt{[1] nominal->Show(10)}} prints out all variables of the 10\textsuperscript{th} entries in nominal
+      \item[--] \textbf{\texttt{[2] nominal->Scan("jet\_pt:jet\_eta")}} prints out values for jet\_pt and jet\_eta of entries
+      \item[--] \textbf{\texttt{[3] nominal->MakeClass("Myclass")}} generates a C++ class to reproduce the nominal TTree \\ (helpful for figuring out variable types)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+  \begin{center}
+  \ugoeAddLogo
+  \Large\bfseries Beginning of Tutorial: \\
+  \large Creating an EventLoop for $t\bar{t}\gamma$ events with selection cuts!
+  \end{center}
+\end{frame}
+
+\end{document}

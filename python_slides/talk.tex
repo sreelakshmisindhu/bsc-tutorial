@@ -1,0 +1,233 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+
+\usetheme{ugoe}
+\input{beamerstyleugoe.tex}
+
+\AtEndPreamble{\hypersetup{
+pdftitle={},
+pdfsubject={},
+pdfauthor={},
+pdfkeywords={}
+}}
+
+\title{\Large\color{ugoelogodark} BSc Intro 2022 Python Tutorial}
+\shorttitle{Python Tutorial}
+\author[]{Wael Alkakhi, Ishan Pokharel, Chris Scheulen, Sreelakshmi Sindhu}
+\institute[Univ. of G\"ottingen]{II.~Physikalisches Institut, Georg-August-Universit\"at G\"ottingen}
+\date{2022-03-09}
+
+\def\insertlogos{
+%   \centering
+%   \includegraphics[height=1.1cm]{logos/BMBF-Gef-Logo-gefoerdert.jpg}%
+%   \hspace{0.5cm}%
+%   \includegraphics[height=1.1cm]{logos/FSP_ATLAS.png}%
+%   \end{minipage}
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Short Demo of Python}
+  \begin{itemize}
+  \item
+    The interpreter: A simple way of testing things out
+  \item
+    Variables in Python
+  \item
+    Indentation or how I learned to stop worrying and love C++'s Semicolons
+  \item
+    Control flow: The ifs and loops of programming
+  \item
+    Using functions and classes in Python
+  \item
+    Multiple files and imports
+  \end{itemize}
+
+  \begin{center}
+    \highl{Now} it's your turn! We've prepared some exercises for you in the following. Try them out! \\[0.5\baselineskip]
+    If anything is unclear or if you are stuck: Ask us. \\[0.5\baselineskip]
+    Maybe also try using \texttt{git} to version control your code. That will also allow us to look at it together if you are stuck somewhere!
+  \end{center}
+\end{frame}
+
+\begin{frame}{Python Virtual Environments}
+  \begin{itemize}
+  \item
+    On \texttt{lxplus} (or most other clusters), you are presented with a certain selection of Python modules
+    \begin{itemize}
+    \item
+      Load as follows (on \texttt{lxplus}): \\
+      \quad \texttt{\$ setupATLAS; lsetup "python <your version>"}
+    \item
+      Look-up versions as discussed yesterday: \\
+      \quad \texttt{\$ showVersions python}
+    \end{itemize}
+  \item
+    In general: OK, but often it would be nice to install some custom modules (e.g.\ \texttt{tensorflow} for Machine Learning), choose different versions (e.g.\ for \texttt{numpy}), or have multiple versions of Python for different purposes
+  \item[$\Rightarrow$]
+    Python virtual environments are your friend!
+  \item
+    For setting them up:
+    \begin{itemize}
+    \item
+      Create venv: \texttt{\$ python{3} -m venv <path/to/venv>}
+    \item
+      Activate venv: \texttt{\$ source <path/to/venv>/bin/activate} \\
+      Notice how \texttt{(<venvname>)} should now be in front of your shell prompts!
+    \item
+      Add modules: \texttt{\$ pip install \{-U\} <module>} (\texttt{-U} for updates)
+    \end{itemize}
+  \item
+    Try it out! Build yourself a Python3 venv with the following modules (for tomorrow/Friday!): \\
+    \texttt{ruamel.yaml}, \texttt{matplotlib}, \texttt{uproot}, \texttt{pandas}, \texttt{tensorflow}, \texttt{scikit-learn}, \texttt{tables}, \texttt{pydot} \\
+    \highl{But:} Start by updating \texttt{pip}: \texttt{\$ pip install -U pip}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Python Interpreter and Macros}
+  \begin{enumerate}
+  \item
+    Open the python interpreter and print out `Hello World!'
+  \item
+    Now, do the same thing from a \texttt{macro.py} file
+  \item
+    Probably, you needed to use the following for the last task: \\
+    \quad \texttt{\$  python macro.py} \\
+    There is also another way involving a so-called \emph{shebang}. Try it out with that!
+  \item
+    Use your file to print out the integers 1 to 20
+  \item
+    Now only print the even integers from 1 to 20
+  \item
+    Can you store these integers in a file?
+  \end{enumerate}
+
+  \textit{Hints:}
+  \begin{itemize}
+  \item
+    Python has a concept similar to the main-method in C++. Try the following for that: \\
+    \quad \texttt{if \_\_name\_\_ == "\_\_main\_\_":}
+  \item
+    To make a file executable with Linux, you also have to change it's permissions. For that you can use \texttt{chmod +x <executable>}
+  \item
+    Try out what the following command does in the interpreter: \\
+    \quad \texttt{range(20)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lists and Dictionaries}
+  \begin{enumerate}
+  \item
+    Write your name, age, and level of study in a \texttt{dictionary}
+  \item
+    Ask the other people in the room about their corresponding info and compile a \texttt{list} of all people
+  \item
+    Print the first names of all people in the room separated by commas
+  \item
+    Save the information of everybody in the room in a text file
+  \end{enumerate}
+
+  \textit{Hints:}
+  \begin{itemize}
+  \item
+    The structure of a dictionary is \texttt{\{<key>:\ <value>, ...\}}, that of a list is \texttt{[<value>, ...]}
+  \item
+    You can open files using one of the following: \\
+    \quad \texttt{using open(<filename>, <access\_option>) as f:} \\
+    \quad \texttt{~~~~<STUFF>} \\
+    (preferred, since the file will be closed correctly if an error happens!) \\
+    \quad \texttt{f = open(<filename>, <access\_option>); <STUFF>; close f}
+  \item
+    For reading/writing, you can use \texttt{f.read()}, \texttt{f.readlines()}, \texttt{f.write(<text>)}, and \texttt{f.writeline(<text>)}. Try out what the different versions do in an editor! 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Methods and Classes}
+  \begin{enumerate}
+  \item
+    Write a method with which you can add more people to the room list
+  \item
+    Make a \texttt{class} person and personlist, which have the same contents as the previous dictionary and list
+  \item
+    Add the add-person method to the personlist class
+  \item
+    Also add a \texttt{\_\_str\_\_}-method to the person class, with which you can print the information contained in the class
+  \end{enumerate}
+
+  \textit{Hints:}
+  \begin{itemize}
+  \item
+    To create methods and classes, you need to use \texttt{def <method>(<arg>, ...):} and \texttt{class <Class>:}
+  \item
+    Classes can be initialized with the magic method \texttt{def \_\_init\_\_(self, <arg>, ...)}
+  \item
+    If you assign \texttt{self.<name> = <value>}, the variable you assign can be used throughout the class
+  \item
+    \texttt{\_\_str\_\_} is another magic method without args (except \texttt{self}!), which should return a string and is automatically called by \texttt{print(<Class>)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Libraries and Multiple Files}
+  \begin{enumerate}
+  \item
+    Put the classes you just created in their own files and the main-method in another one
+  \item
+    Use \texttt{sys.argv} to add people to the personlist class from the commandline
+  \item
+    Check out python's \texttt{argparse} standard library and write some parameters for your executable
+  \item
+    Add methods to load and save your personlist as \texttt{json} and \texttt{yaml} files
+  \end{enumerate}
+
+  \textit{Hints:}
+  \begin{itemize}
+  \item
+    You can make python files and libraries accessible to each other using \texttt{import}-statements
+  \item
+    Try out what \texttt{sys.argv} does with a simple macro if you are unsure
+  \item
+    The references for \href{https://docs.python.org/3/library/argparse.html}{\color{ugoelogodark}\uline{\texttt{argparse}}}, \href{https://docs.python.org/3/library/json.html}{\color{ugoelogodark}\uline{\texttt{json}}}, and \href{https://yaml.readthedocs.io/en/latest/}{\color{ugoelogodark}\uline{\texttt{yaml}}} can tell you how each of these packages works!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{More Stuff to Try out}
+
+  If you still have time left, try out one of these tasks:
+  \begin{itemize}
+  \item
+    Use \texttt{numpy}-arrays to check out the anticommutators of the $\gamma$-matrices. Do they behave as expected?
+  \item
+    Build a class `Uncertainty' which allows adding in quadrature
+  \item
+    Expand your person-class to also include a subclass `Student' with inheritance. At this point, the argument `level-of-study' of course only makes sense for students.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+  \item
+    Overall, Python is a very user-friendly programming language
+  \item
+    Now used extensively for Data Science {\color{ugoelogodark}$\rightarrow$} Connection with C++ based \texttt{ROOT} via \texttt{uproot} module
+    \begin{itemize}
+      \item[$\hookrightarrow$]
+        More about that tomorrow
+    \end{itemize}
+  \item
+    Of course we could only give you a very brief overview of Python. If you are stuck during your thesis, just look online for help or ask your friendly PhD student!
+\end{itemize}
+\hrule height0pt
+\vfill
+\hrule height0pt
+\begin{center}
+  \textbf{\Large \color{ugoelogodark}Thanks for your attention}
+\end{center}
+\end{frame}
+
+% \appendix
+
+\end{document}

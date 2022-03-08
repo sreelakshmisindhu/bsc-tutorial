@@ -1,0 +1,139 @@
+% Keeping graphics nice and tidy in a subfolder
+\graphicspath{{./images/}{./}{/home/chris/Documents/PhD/Presentations/common_images/}}
+
+
+% In general, you should encode all files using UTF-8
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Set the math mode font to sans-serif
+\let\mathrm\mathsf
+
+% Use this for better font scaling (esp. if you want to use \tiny)
+\usepackage{lmodern}
+\usepackage{bm}
+\usepackage{exscale}
+\usepackage[normalem]{ulem}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+%\usepackage{ctable}
+\usepackage{ragged2e}
+
+\usepackage[yearmonthsep={-}, monthdaysep={-}, style=default]{datetime2}
+
+\usepackage{xspace}
+\usepackage{commath}
+\usepackage{amsmath,amssymb}
+
+\usepackage{siunitx}
+\sisetup{separate-uncertainty = true, multi-part-units=single, list-final-separator = {,\;}, list-separator = {,\;}, list-pair-separator = {,~\mathrm{and}~}, exponent-product=\cdot}
+\DeclareSIUnit{\lightspeed}{c}
+\DeclareSIUnit{\electronvolt}{{e}\kern-0.08em{V}}
+\DeclareSIUnit{\evmass}{\electronvolt\per\lightspeed\squared}
+\DeclareSIUnit{\evmom}{\electronvolt\per\lightspeed}
+
+\usepackage{tabularx}
+\newcolumntype{C}[1]{%
+    >{\setlength{\baselineskip}{0.8\baselineskip}
+    \centering\arraybackslash}m{#1}
+    }
+\newcolumntype{L}[1]{%
+    >{\setlength{\baselineskip}{0.8\baselineskip}
+    \raggedright\arraybackslash}m{#1}
+    }
+\newcolumntype{R}[1]{%
+    >{\setlength{\baselineskip}{0.8\baselineskip}
+    \raggedleft\arraybackslash}m{#1}
+    }
+\newcolumntype{Y}{
+    >{\setlength{\baselineskip}{0.8\baselineskip}
+    \centering\arraybackslash}X
+    }
+
+\usepackage[compat=1.1.0]{tikz-feynman}
+
+\usepackage{enumitem}
+\setlist[itemize]{font=\color{ugoelogodark}}
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=--}
+\setlist[enumerate]{font=\color{ugoelogodark}}
+\setlist[enumerate,1]{label=\arabic*.}
+
+%\usetikzlibrary{calc}
+
+\newcommand\Overline[2][1pt]{%
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {$#2$};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+}
+\newcommand\textoverline[2][0.05em]{%
+  \kern-0.05em
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[inner xsep=0pt,inner ysep=1.5pt] (a) {#2};
+    \draw[line width= #1] ([yshift=0ex]a.north west) -- ([yshift=0ex]a.north east);
+  \end{tikzpicture}
+  \kern-0.37em
+}
+\newcommand{\textboldoverline}[2][0.07em]{
+  \kern-0.35em
+  \begin{tikzpicture}[baseline=(a.base)]
+    \node[outer xsep=0pt, inner xsep=0pt,inner ysep=1.5pt] (a) {#2};
+    \draw[line width= #1] (a.north west) -- (a.north east);
+  \end{tikzpicture}
+  \kern-0.35em
+}
+
+%\newcommand*{\textboldoverline}[1]{$\bm\bar{\mbox{#1}}$}
+%\newcommand*{\textoverline}[1]{$\overline{\mathrm{#1}}$}
+\newcommand*{\highl}[1]{\textbf{\color{ugoelogodark}#1}}
+
+\newcommand{\dzero}      {D\O\xspace}
+\newcommand{\cdf}        {CDF\xspace}
+\newcommand{\uubar}      {\mbox{u\textoverline{u}}\xspace}
+\newcommand{\ddbar}      {\mbox{d\textoverline{d\kern0.05em}\kern-0.05em}\xspace}
+\newcommand{\ccbar}      {\mbox{c\kern-0.02em\textoverline{\kern0.02em{}c\kern0.02em}\kern-0.02em}\xspace}
+\newcommand{\ssbar}      {\mbox{s\kern-0.02em\textoverline{\kern0.02em{}s\kern0.02em}\kern-0.02em}\xspace}
+\newcommand{\ttbar}      {\mbox{t\kern-0.02em\textoverline{\kern0.05em{}t}}\xspace}
+\newcommand{\bbbar}      {\mbox{b\kern-0.05em\textoverline{\kern0.05em{}b}}\xspace}
+\newcommand{\ccbarbold}  {\mbox{\textbf{c\kern-0.02em\textboldoverline{\kern0.02em{}c\kern0.02em}\kern-0.02em}}\xspace}
+\newcommand{\ttbarbold}  {\mbox{\textbf{t\kern-0.05em\textboldoverline{\kern0.05em{}t}}}\xspace}
+\newcommand{\bbbarbold}  {\mbox{\textbf{b\kern-0.05em\textboldoverline{\kern0.05em{}b}}}\xspace}
+
+\newcommand{\wjets}      {\mbox{W\,+\,4\;jets}\xspace}
+\newcommand{\pttbar}     {\mbox{p\textsubscript{\ttbar}}\xspace}
+\newcommand{\pwjets}     {\mbox{p\textsubscript{W\,+\,4\;jets}}\xspace}
+\newcommand{\ljets}      {\mbox{$\ell$\,+\,jets}\xspace}
+\newcommand{\ejets}      {\mbox{e\,+\,jets}\xspace}
+\newcommand{\mujets}     {\mbox{$\mu$\,+\,jets}\xspace}
+\newcommand{\ttjets}     {\mbox{\ttbar{}\,+\,jets}\xspace}
+\newcommand{\ttljets}    {\mbox{\ttbar{}\,+\,light jets}\xspace}
+\newcommand{\ttlight}    {\mbox{\ttbar{}\,+\,light}\xspace}
+\newcommand{\ttc}        {\mbox{\ttbar{}\,+\,c}\xspace}
+\newcommand{\ttb}        {\mbox{\ttbar{}\,+\,b}\xspace}
+\newcommand{\wt}         {\mbox{Wt}\xspace}
+
+\newcommand{\ttx}        {\mbox{\ttbar{}X}\xspace}
+\newcommand{\ttv}        {\mbox{\ttbar{}V}\xspace}
+\newcommand{\thiggs}     {\mbox{tH}\xspace}
+\newcommand{\tth}        {\mbox{\ttbar{}H}\xspace}
+\newcommand{\hbb}        {\mbox{H\,$\rightarrow$\,\bbbar}\xspace}
+\newcommand{\thbb}       {\mbox{\thiggs{}(\hbb)}\xspace}
+\newcommand{\tthbb}      {\mbox{\tth{}(\hbb)}\xspace}
+\newcommand{\tthgam}     {\mbox{\tth{}(H\,$\rightarrow$\,$\gamma\gamma$)}\xspace}
+\newcommand{\ttbb}       {\mbox{\ttbar{}\,+\,\bbbar}\xspace}
+
+\newcommand{\thiggsbold} {\mbox{\textbf{tH}}\xspace}
+\newcommand{\tthbold}    {\mbox{\ttbarbold{}\textbf{H}}\xspace}
+\newcommand{\hbbbold}    {\mbox{\textbf{H}\,$\boldsymbol{\rightarrow}$\,\bbbarbold}\xspace}
+\newcommand{\thbbbold}   {\mbox{\thiggsbold{}\textbf{(}\hbbbold{}\textbf{)}}\xspace}
+\newcommand{\tthbbbold}  {\mbox{\tthbold{}\textbf{(}\hbbbold{}\textbf{)}}\xspace}
+
+\newcommand{\thiggstitle}{\mbox{tH}\xspace}
+\newcommand{\tthtitle}   {\mbox{t\kern-0.02em$\overline{\kern0.05em{}\mathrm{t}}$H}\xspace}
+\newcommand{\hbbtitle}   {\mbox{H\,$\rightarrow$\,b\kern-0.05em$\overline{\kern0.05em{}\mathrm{b}}$}\xspace}
+\newcommand{\tthbbtitle} {\mbox{\tthtitle{}(\hbbtitle)}\xspace}
+
+\newcommand{\pt}         {\mbox{$p_{\kern0.1em\mathrm{T}}$}\xspace}
+\newcommand{\mathpt}     {p_{\kern0.1em\mathrm{T}}}

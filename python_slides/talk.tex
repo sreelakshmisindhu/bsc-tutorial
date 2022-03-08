@@ -1,0 +1,144 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+
+\usetheme{ugoe}
+\input{beamerstyleugoe.tex}
+
+\AtEndPreamble{\hypersetup{
+pdftitle={},
+pdfsubject={},
+pdfauthor={},
+pdfkeywords={}
+}}
+
+\title{\Large\color{ugoelogodark} BSc Intro 2022 Python Tutorial}
+\shorttitle{Python Tutorial}
+\author[]{Wael Alkakhi, Ishan Pokharel, Chris Scheulen, Sreelakshmi Sindhu}
+\institute[Univ. of G\"ottingen]{II.~Physikalisches Institut, Georg-August-Universit\"at G\"ottingen}
+\date{2022-03-09}
+
+\def\insertlogos{
+%   \centering
+%   \includegraphics[height=1.1cm]{logos/BMBF-Gef-Logo-gefoerdert.jpg}%
+%   \hspace{0.5cm}%
+%   \includegraphics[height=1.1cm]{logos/FSP_ATLAS.png}%
+%   \end{minipage}
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Short Demo of Python}
+  \begin{itemize}
+    \item
+      The interpreter: A simple way of testing things out
+    \item
+      Variables in Python
+    \item
+      Indentation or how I learned to stop worrying and love C++'s Semicolons
+    \item
+      Control flow: The ifs and loops of programming
+    \item
+      Using functions and classes in Python
+    \item
+      Multiple files and imports
+  \end{itemize}
+  \begin{center}
+    \highl{Now:} It's your turn! We've prepared some exercises for you in the following. Try them out! \\[0.5\baselineskip]
+    If anything is unclear or if you are stuck: Ask us. \\[0.5\baselineskip]
+    Maybe also try using \texttt{git} to version control your code. That will also allow us to look at it together if you are stuck somewhere!
+  \end{center}
+\end{frame}
+
+\begin{frame}{Python Virtual Environments}
+\begin{itemize}
+  \item
+    On \texttt{lxplus} (or most other clusters), you are presented with a certain selection of Python modules
+    \begin{itemize}
+      \item
+        Load as follows (on \texttt{lxplus}): \\
+        \quad \texttt{\$ setupATLAS; lsetup "python <your version>"}
+      \item
+        Look-up versions as discussed yesterday: \\
+        \quad \texttt{\$ showVersions python}
+    \end{itemize}
+  \item
+    In general: OK, but often it would be nice to install some custom modules (e.g.\ \texttt{tensorflow} for Machine Learning), choose different versions (e.g.\ for \texttt{numpy}), or have multiple versions of Python for different purposes
+  \item[$\Rightarrow$]
+    Python virtual environments are your friend!
+  \item
+    For setting them up:
+    \begin{itemize}
+      \item
+        Create venv: \texttt{\$ python{3} -m venv <path/to/venv>}
+      \item
+        Activate venv: \texttt{\$ source <path/to/venv>/bin/activate} \\
+        Notice how \texttt{(<venvname>)} should now be in front of your shell prompts!
+      \item
+        Add modules: \texttt{\$ pip install \{-U\} <module>} (\texttt{-U} for updates)
+    \end{itemize}
+  \item
+    Try it out! Build yourself a Python3 venv with the following modules (for tomorrow/Friday!): \\
+    \texttt{ruamel.yaml}, \texttt{matplotlib}, \texttt{uproot}, \texttt{pandas}, \texttt{tensorflow}, \texttt{scikit-learn}, \texttt{tables}, \texttt{pydot} \\
+    \highl{But:} Start by updating \texttt{pip}: \texttt{\$ pip install -U pip}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Python Interpreter and Macros}
+\begin{enumerate}
+  \item
+    Open the python interpreter and print out `Hello World!'
+  \item
+    Now, do the same thing from a \texttt{macro.py} file
+  \item
+    Probably, you needed to use the following for the last task: \\
+    \quad \texttt{\$  python macro.py} \\
+    There is also another way involving a so-called \emph{shebang}. Try it out with that!
+  \item
+    Use your file to print out the integers 1 to 20
+  \item
+    Now only print the even integers from 1 to 20
+  \item
+    Can you store these integers in a file?
+\end{enumerate}
+
+\textit{Hints:}
+\begin{itemize}
+  \item
+    Python has a concept similar to the main-method in C++. Try the following for that: \\
+    \quad \texttt{if \_\_name\_\_ == "\_\_main\_\_":}
+  \item
+    To make a file executable with Linux, you also have to change it's permissions. For that you can use \texttt{chmod +x <executable>}
+  \item
+    Try out what the following command does in the interpreter: \\
+    \quad \texttt{range(20)}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+  \item
+    Python is a very user-friendly programming language
+  \item
+    Now used extensively for Data Science {\color{ugoelogodark}$\rightarrow$} Connection with C++ based \texttt{ROOT} via \texttt{uproot} module
+    \begin{itemize}
+      \item[$\hookrightarrow$]
+        More about that tomorrow
+    \end{itemize}
+  \item
+    Of course we could only give you a very brief overview of Python. If you are stuck during your thesis, just look online for help or ask your friendly PhD student!
+\end{itemize}
+\hrule height0pt
+\vfill
+\hrule height0pt
+\begin{center}
+  \textbf{\Large \color{ugoelogodark}Thanks for your attention}
+\end{center}
+\end{frame}
+
+% \appendix
+
+\end{document}

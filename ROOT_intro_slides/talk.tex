@@ -34,33 +34,27 @@ pdfkeywords={}
 
   \begin{itemize}
     \item
-      \emph{9:00 -- 10:30:} \textbf{Intro}
+    \textbf{Intro}
     \begin{itemize}
       \item[--] Setting up
       \item[--] Interactive ROOT sessions
       \item[--] ROOT via Terminal
     \end{itemize}
     \item
-      \emph{10:30 -- 12:30:} \textbf{Tutorial}
+    \textbf{Tutorial}
     \begin{itemize}
       \item[--] Opening TFiles
       \item[--] Creating TChains
       \item[--] Accessing Variables from TBranches
-    \end{itemize}
-    \item
-      \emph{12:30 -- 13:30:} \textbf{Lunch}
-    \item
-      \emph{13:30 -- 16:30:} \textbf{Tutorial cont'd}
-    \begin{itemize}
       \item[--] Setting up Event Loops
       \item[--] Filling Histograms (TH1/TH2)
       \item[--] Writing Histograms to TFile
+      \item[--] General Notes
     \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{First Things First: Setting Up}
-  \footnotesize\textbf{(NOTE: This should largely be a repeat of Monday)}
   \normalsize
   \begin{enumerate}
     \item
@@ -171,10 +165,14 @@ pdfkeywords={}
       \item[--] \textbf{\texttt{[0] nominal->Print()}} prints tree contents of nominal
       \item[--] \textbf{\texttt{[1] nominal->Show(10)}} prints out all variables of the 10\textsuperscript{th} entries in nominal
       \item[--] \textbf{\texttt{[2] nominal->Scan("jet\_pt:jet\_eta")}} prints out values for jet\_pt and jet\_eta of entries
-      \item[--] \textbf{\texttt{[3] nominal->MakeClass("Myclass")}} generates a C++ class to reproduce the nominal TTree \\ (helpful for figuring out variable types)
+       \item[--] \textbf{\texttt{[3] nominal->Scan("jet\_pt:jet\_eta", "", "colsize=XX")}} prints out values for jet\_pt and jet\_eta of entries and specifies range of characters to print
+      \item[--] \textbf{\texttt{[4] nominal->MakeClass("Myclass")}} generates a C++ class to reproduce the nominal TTree \\ (helpful for figuring out variable types)
     \end{itemize}
   \end{itemize}
 \end{frame}
+
+
+
 
 \begin{frame}
 
@@ -184,5 +182,31 @@ pdfkeywords={}
   \large Creating an EventLoop for $t\bar{t}\gamma$ events with selection cuts!
   \end{center}
 \end{frame}
+
+\begin{frame}{Tips}
+	\begin{enumerate}
+		\item
+		Memory Management in ROOT
+		\begin{itemize}
+			\item[--] Has its own memory management system that is different than a specific programming language's garbage collector.
+			\item[--] If a file is open (TFile), then all objects (TObjects) are 'owned' by this file. Important to free up the object to the global register to be used later (\textbf{\texttt{SetDirectory(0)}})
+			\item[--] Always open a file, access the object and IMMEDIATELY close the file.
+		\end{itemize}
+		\item
+		\texttt{TBrowser} over ssh connection is very slow to respond
+		\begin{itemize}
+			\item[--] Familiarise and use \texttt{tree->Print(), tree->Scan()} for quick review.
+			\item[--] Get Event related information from \texttt{tree->MakeClass("myClass")}.
+			\item[--] If coding in C++, make sure the exact same object type is being used.
+		\end{itemize}
+		\item
+		Environment setup
+		\begin{itemize}
+			\item[--] Include \texttt{setupATLAS} and other ATLAS-specific setups (\texttt{lsetup}) in a bash script. Create an alias to set it up in your \texttt{\textbackslash.bashrc} 
+			\item[--] Bash \texttt{alias} is your friend!
+		\end{itemize}
+	\end{enumerate}
+\end{frame}
+
 
 \end{document}

@@ -116,7 +116,7 @@
 
 \thispagestyle{empty}
 \begin{center}
-\Large{\sc  Welcome package - week 3\\}
+\Large{\sc  Welcome package - week 2\\}
 \vspace*{2mm}
 
 \large{\sc ROOT Tutorial}  
@@ -154,66 +154,61 @@ Aim of this tutorial is to give you a first hand experience on using root to per
 \begin{verbatim}
 root -l "EventLoopExample.cxx"
 	\end{verbatim}
-		\item Also, include appropriate header files of ROOT classes you will use. For Example:
-		\begin{lstlisting}
-		#include "TFile.h"
-		\end{lstlisting}
 	\end{itemize} 	
 
 	\item {\bf Step 2: Set the input and output arguments}\\
 	\begin{itemize}
 	
-		\item We want the macro to read the input file: "/afs/cern.ch/user/i/ispokhar/pub lic/sampleNtuple/" and store the information that we need in a new file.
+		\item We want the macro to read the input file: "/afs/cern.ch/user/i/ispokhar/public /sampleNtuple/ttbar\_dilep.root" and store the information that we need in a new file.
 		\item Declare the input file path and the output file path. For Example:
 			\begin{lstlisting}
-
 	void EventLoopExample()
 	 	{
-	 	
 	 	std::string pathToInputFile = "";
 	 	std::string pathToOutputFile = "";
 		std::cout << "Reading from " << pathToInputFile <<
 		 " and writing to " << pathToOutputFile << std::endl;
-	 	
 	 	}
-
 \end{lstlisting}
 
-
-
-
-\item Declare TChain and add the file to the TChain.  
+	\item Also, include appropriate header files of ROOT classes you will use. For Example:
+		\begin{lstlisting}
+		#include "TFile.h"
+		\end{lstlisting}
+	
+\item Declare TChain and add the file to the TChain. Here "truth" is the name of the tree in the root file that you want to access. 
 			\begin{lstlisting}
-	TChain Chain_A("nominal");
+	TChain Chain_A("truth");
 \end{lstlisting}
-\item Read events from the nominal tree.
+\item Read events from the truth tree from the root file.
 \begin{lstlisting}
 	Chain_A.Add(pathToInputFile);
 
 \end{lstlisting}
 \end{itemize}
-\item {\bf Step 3: Identifying the variables, declaring them and setting branch address}\\
+\item {\bf Step 3: Identifying the variables, declaring them and setting branch address}
+\vspace{3mm}
  Next we have to identify the branch address for the variables we are interested in and link their branch address. For example, for the photon $p_{T}$ : 
 \begin{itemize}
 \item Declare a variable that will hold the object kinematics as a pointer: (make sure that the datatype is matched)
 \begin{lstlisting}
-	std::vector<float> *v_pt_A =0;
+	Float_t pt_A = 0;
 \end{lstlisting}
 \item Declare the branch that holds the information in the ntuple:
 \begin{lstlisting}
-	TBranch *b_pt_A =0;
+	TBranch *b_pt_A;
 \end{lstlisting}
 
 \item Now link the branch to the variable where the information has to be stored temporarily, using TTree::SetBranchAddress. %Here, "ph\_pt" is the name of the branch.
 \begin{lstlisting}
-	Chain_A.SetBranchAddress("ph_pt", &v_pt_A, &b_pt_A);
+	Chain_A.SetBranchAddress("ph_pt", &pt_A, &b_pt_A);
 \end{lstlisting}
 \end{itemize}
 \item {\bf Step 4: Declare histograms:}
 \begin{itemize}
 \item Our aim is to store the information from the ntuple to a histogram. For that first we have to declare them as TH1 objects:
  \begin{lstlisting}
- TH1F* pt_A = new TH1F("A_pt", "", 20, 0, 400);
+ TH1F* pt_hist = new TH1F("name", "title", no_of_bins, start_of_the_first_bin , end_of_the_last_bin);
 \end{lstlisting}
 \item Here the arguments are as follows: (name of the histogram, title of the histogram, number of bins, starting point of first bin, ending point of last bin)
 	\end{itemize}
@@ -224,7 +219,7 @@ root -l "EventLoopExample.cxx"
 \item Within the loop fill the histograms
 \item Event information can be obtained within the loop using:
 \begin{lstlisting}
-	Chain_A.GetEntry(ievent);
+	Chain_A.GetEntry(event_number);
 \end{lstlisting}
 \item The number of events in the tree can be accessed using:
 
@@ -240,39 +235,21 @@ int entries_A = Chain_A.GetEntries();
 \begin{lstlisting}     
 TFile* outFile = new TFile(outPath + "outFile.root", "RECREATE");
 outFile->cd();             
-pt_A->Write("pt_A");
+pt_hist->Write("pt_hist");
 outFile->Close();                                                    
          \end{lstlisting}
 \end{itemize}
 
 \item{\bf Step 7: Additional assignments}
 \begin{itemize}
-	\item Write more histograms to the TFile: Specifically, add, "ph\_eta" and "ph\_phi".  
-	\item Fill a 2D Histogram with photon $p_{T}$ on x-axis and $\eta$ on the y-axis.
+	\item Write more histograms to the TFile: Specifically, add, $\eta$, $\phi$ and mass of the decay particles of the W (MC\_Wdecay1\_from\_t, MC\_Wdecay2\_from\_t).
+	\item Fill a 2D Histogram with $p_{T}$ of the two decay particle on the x-axis and y-axis.
 	\begin{lstlisting}
- TH2F* hist2D_A = new TH2F("pTvsEta_A", "", 20, 0, 400, 20, -2.5, 2.5);
+ TH2F* hist2D = new TH2F("pT1vspT2", "", nbins_x, start_x, end_x, nbins_y, start_y, end_y);
 \end{lstlisting}
 
-\item Add another input file: "/eos/user/a/ankirchh/ttgamma-analysis/mini-n\
-tuples/ljets/mc16d\_TOPQ1\_ttgamma\_LO\_dec.412114.root" \\
-This file contains events with FSR photons. The file you worked with till now contains $t\bar{t}\gamma$ events with ISR photons.\\ 
 
-
-\begin{figure}[h]
-  \centering
-  \subfigure[Photon radiated from the initial state particle (ISR)]{
-  \includegraphics[width=0.33\textwidth]{isr.png}}
-  % \subfigure[from top quark]{
-  % \includegraphics[width=0.2\textwidth]{top.png}}
-   \subfigure[Photon radiated from final state particle (FSR)]{
-   \includegraphics[width=0.33\textwidth]{fsr.png}}
-  \caption{Feynman diagrams of $t\bar{t}\gamma$ production}
-  \label{fig:tty}
-\end{figure}
-
-\item Add another event loop and write, "ph\_pt", "ph\_eta" and "ph\_phi" for the FSR photons to the same TFile.   
 \end{itemize}
-\item Outlook: These histograms will be used in tomorrow's session.
 \end{itemize}
 \break
 \section{Plotting using PYROOT}
@@ -303,10 +280,26 @@ Hist_name.GetYaxis().SetTitle("Events")
 \end{lstlisting}
 
 \subsection{Making ratio plots}
-You can make several pads within the canvas using TPad. An additional pad can be added for showing the ratio plot.  
-%\subsection{Setting up atlasplots}
+You can make several pads within the canvas using TPad. An additional pad can be added for showing the ratio plot. 
+\begin{lstlisting}
+TPad("pad1","pad1",x_low,y_low,x_up,y_up)
+pad1.cd()
+\end{lstlisting} 
+You can used Divide() function to take ratio of the histgrams.
+\subsection{Setting up atlasplots}
+Atlas has a collection of plotting and style recommendations for plots. A detailed list of these can be found here \href{https://cds.cern.ch/record/1110290/files/gen-pub-2008-001.pdf}{ATLAS style guide}. Another easy way to do plotting would be to use a package called \href{https://atlas-plots.readthedocs.io/en/latest/index.html}{atlasplots} which includes all the labels already and can be used directly.
 
 \section{Performing a fit}
+
+\subsection{TLorentzVector class}
+TLorentzVector is a four-vector class, which can be used either for the description of position and time (x,y,z,t) or momentum and energy (px,py,pz,E).
+
+\begin{lstlisting}
+	TLorentzVector lep;
+	lep.SetPtEtaPhiM(pt,eta,phi,m);
+\end{lstlisting}
+
+Include this in your event loop and use this to calculate the mass of the W and fill it into a histogram.
 %This will be done using EFT\textit{fitter}\cite{eftfitter} tool.
 % \bibliography{bibtex_file}
 % \bibliographystyle{bthesis}

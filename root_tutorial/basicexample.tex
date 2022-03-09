@@ -250,8 +250,17 @@ outFile->Close();
 
 
 \end{itemize}
+\item \subsection{TLorentzVector class}
+TLorentzVector is a four-vector class, which can be used either for the description of position and time (x,y,z,t) or momentum and energy (px,py,pz,E).
+
+\begin{lstlisting}
+	TLorentzVector lep;
+	lep.SetPtEtaPhiM(pt,eta,phi,m);
+\end{lstlisting}
+
+Include this in your event loop and use this to calculate the mass of the W and fill it into a histogram.
 \end{itemize}
-\break
+%\break
 \section{Plotting using PYROOT}
 
 In this session we will focus on plotting these histograms and saving them as png/pdf files. It is usually useful to overlay histograms and take ratios to do some comparative study. We will use PYROOT to do this in this session but this can also be done using ROOT based on C++. 
@@ -289,17 +298,9 @@ You can used Divide() function to take ratio of the histgrams.
 \subsection{Setting up atlasplots}
 Atlas has a collection of plotting and style recommendations for plots. A detailed list of these can be found here \href{https://cds.cern.ch/record/1110290/files/gen-pub-2008-001.pdf}{ATLAS style guide}. Another easy way to do plotting would be to use a package called \href{https://atlas-plots.readthedocs.io/en/latest/index.html}{atlasplots} which includes all the labels already and can be used directly.
 
-\section{Performing a fit}
+%\section{Performing a fit}
 
-\subsection{TLorentzVector class}
-TLorentzVector is a four-vector class, which can be used either for the description of position and time (x,y,z,t) or momentum and energy (px,py,pz,E).
 
-\begin{lstlisting}
-	TLorentzVector lep;
-	lep.SetPtEtaPhiM(pt,eta,phi,m);
-\end{lstlisting}
-
-Include this in your event loop and use this to calculate the mass of the W and fill it into a histogram.
 %This will be done using EFT\textit{fitter}\cite{eftfitter} tool.
 % \bibliography{bibtex_file}
 % \bibliographystyle{bthesis}

@@ -105,7 +105,7 @@ pdfkeywords={}
     \begin{itemize}
       \item[--] \textbf{\texttt{double pi = 3.14}}
       \item[--] \textbf{\texttt{int r = 10}}
-      \item[--] \textbf{\texttt{std::string "Welcome to ROOT!"}} ($\leftarrow$ Note how some C++ stuff works as well!)
+      \item[--] \textbf{\texttt{std::string welcome = "Welcome to ROOT!"}} ($\leftarrow$ Note how some C++ stuff works as well!)
       \item[--] \textbf{\texttt{2 * pi * r}}
     \end{itemize}
     \item
@@ -139,7 +139,7 @@ pdfkeywords={}
       \item[--]
         TTrees hold TBranches
       \item[--]
-        Branches have TLeaves with the event variables (one variable per leaf, one or more leaves per branch)
+        Branches have TLeaves with the event variables (one variable per leaf, one or more leafs per branch)
     \end{itemize}
   \end{itemize}
     \end{column}
@@ -163,7 +163,7 @@ pdfkeywords={}
       Now you can look at the tree contents:
     \begin{itemize}
       \item[--] \textbf{\texttt{[0] nominal->Print()}} prints tree contents of nominal
-      \item[--] \textbf{\texttt{[1] nominal->Show(10)}} prints out all variables of the 10\textsuperscript{th} entries in nominal
+      \item[--] \textbf{\texttt{[1] nominal->Show(10)}} prints out all variables of the 10\textsuperscript{th} entry in nominal
       \item[--] \textbf{\texttt{[2] nominal->Scan("jet\_pt:jet\_eta")}} prints out values for jet\_pt and jet\_eta of entries
        \item[--] \textbf{\texttt{[3] nominal->Scan("jet\_pt:jet\_eta", "", "colsize=XX")}} prints out values for jet\_pt and jet\_eta of entries and specifies range of characters to print
       \item[--] \textbf{\texttt{[4] nominal->MakeClass("Myclass")}} generates a C++ class to reproduce the nominal TTree \\ (helpful for figuring out variable types)
@@ -177,13 +177,15 @@ pdfkeywords={}
 \begin{frame}
 
   \begin{center}
-  \ugoeAddLogo
-  \Large\bfseries Beginning of Tutorial: \\
-  \large Creating an EventLoop for $t\bar{t}\gamma$ events with selection cuts!
+    \ugoeAddLogo
+    {\color{ugoelogodark}
+    \Large\bfseries Next up: Tutorial} \\
+    \large\bfseries Creating an EventLoop with selection cuts \\
+    and plotting/fitting the resulting histograms!
   \end{center}
 \end{frame}
 
-\begin{frame}{Tips}
+\begin{frame}{Tipps}
 	\begin{enumerate}
 		\item
 		Memory Management in ROOT

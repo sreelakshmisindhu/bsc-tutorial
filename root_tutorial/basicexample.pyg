@@ -1,0 +1,6 @@
+
+		 	void EventLoopExample()
+	 	{
+	 	std::cout << "Testing my ROOT macro" << std::endl;
+	 	}
+
